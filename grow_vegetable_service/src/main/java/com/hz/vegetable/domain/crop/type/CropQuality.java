@@ -5,7 +5,7 @@ package com.hz.vegetable.domain.crop.type;
  * @version v1.0
  * @date 2022/1/14
  **/
-public enum CropType {
+public enum CropQuality {
     /**
      *  1：瘦弱的，2 普通，3，稀有，4仙植
      **/
@@ -16,7 +16,7 @@ public enum CropType {
     int code;
     String name;
 
-    CropType(int code, String name) {
+    CropQuality(int code, String name) {
         this.code = code;
         this.name = name;
     }

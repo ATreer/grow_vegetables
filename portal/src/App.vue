@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Welcome msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
+<!--    <Welcome msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 

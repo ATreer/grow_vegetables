@@ -9,13 +9,14 @@ import javax.persistence.Table;
 /**
  * @author HuangZ
  * @version v1.0
- * @date 2022/1/14
+ * @date 2022/1/17
  **/
 @Data
-@Table(name = "test_user")
-public class TestUser {
+@Table(name = "grade_dictionary")
+public class GradeDictionary {
     @Id
     @KeySql(useGeneratedKeys = true)
-    Integer id;
+    int id;
     String name;
+    int type;
 }

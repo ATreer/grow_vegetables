@@ -1,8 +1,7 @@
 <template>
-  <el-container>
-    <el-header>Header</el-header>
-    <el-main>Main</el-main>
-  </el-container>
+  <div>
+    <el-button type="success" @click="$router.push('/main')">goMain</el-button>
+  </div>
 </template>
 
 <script>

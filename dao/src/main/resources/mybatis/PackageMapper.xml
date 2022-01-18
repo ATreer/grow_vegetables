@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hz.mapper.PackageMapper">
-    <select id="selectAllByUserId" resultType="com.hz.domain.complex.PackageObj" parameterType="int">
+    <resultMap id="PackageObjMap" type="com.hz.domain.complex.PackageObj">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="grower_id" jdbcType="VARCHAR" property="growerId" />
+        <result column="max_package_count" jdbcType="VARCHAR" property="maxPackageCount" />
+        <result column="obj_count" jdbcType="INTEGER" property="objCount" />
+        <result column="obj_id" jdbcType="BIGINT" property="objId" />
+        <result column="obj_type" jdbcType="BIGINT" property="objType" />
+        <result column="grade" jdbcType="VARCHAR" property="grade" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="desc" jdbcType="VARCHAR" property="desc" />
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+    </resultMap>
+
+    <select id="selectAllByUserId" resultMap="PackageObjMap" parameterType="int">
         SELECT p.id,p.grower_id,p.max_package_count,p.obj_count,p.obj_id,p.obj_type,obj.grade,obj.`name`,obj.`desc`,obj.type,obj.image_url
-        from package p JOIN  `game_obj` obj on obj.id = p.obj_id  WHERE  p.grower_id = #{id};
+        from package p LEFT JOIN  `game_obj` obj on obj.id = p.obj_id  WHERE  p.grower_id = #{id};
     </select>
 </mapper>

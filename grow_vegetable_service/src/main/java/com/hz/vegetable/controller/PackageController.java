@@ -1,13 +1,16 @@
 package com.hz.vegetable.controller;
 
+import com.hz.domain.GrowPlantArea;
 import com.hz.domain.Package;
 import com.hz.domain.complex.PackageObj;
-import com.hz.mapper.PackageMapper;
+import com.hz.vegetable.domain.CropResponseResult;
+import com.hz.vegetable.domain.UseObjParam;
+import com.hz.vegetable.service.GrowPlantAreaService;
+import com.hz.vegetable.service.PackageService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,14 +24,27 @@ import java.util.List;
 @RequestMapping("package")
 public class PackageController {
     @Resource
-    PackageMapper packageMapper;
-
+    PackageService packageService;
+    @Resource
+    GrowPlantAreaService growPlantAreaService;
     @PostMapping("findAll")
-    public List<PackageObj> findAll(@RequestBody Package backpack){
-        Example example = new Example(Package.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("growerId",backpack.getId());
+    public CropResponseResult<List<PackageObj>> findAll(@RequestBody Package backpack){
+        if (backpack.getGrowerId() == 0){
+            return CropResponseResult.failed(10001,"参数不合法");
+        }
+        return CropResponseResult.ok(packageService.findAll(backpack.getGrowerId()));
+    }
 
-        return packageMapper.selectAllByUserId(backpack.getGrowerId());
+    @PostMapping("plantObj")
+    public CropResponseResult<String> plantObj (@RequestBody UseObjParam param){
+        //参数判空
+        if(null == param || param.getObjId() == 0|| param.getGrowerId() == 0){
+            return CropResponseResult.failed(10001,"参数不合法");
+        }
+        GrowPlantArea area = growPlantAreaService.findOne(param.getGrowerId(),param.getTargetId());
+        if (null == area){
+            return CropResponseResult.failed(10001,"参数不合法");
+        }
+        return CropResponseResult.ok("种植成功。");
     }
 }

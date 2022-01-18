@@ -7,33 +7,31 @@
           </el-row>
           <el-row :gutter="20" class="blessedLandArea" >
             <el-col v-for="plant in plantAreaList" :xs="24" :sm="12" :md="8" :lg="6" :xl="6" style="height: 50px;text-align: left;margin-top: 10px">
-              <plantArea :params="plant"></plantArea>
+              <plantArea @selectProps="selectProps" :params="plant" ></plantArea>
             </el-col>
           </el-row>
+          <packageDialog :dialogFormVisible="dialogFormVisible" :param="currentAreaId" ></packageDialog>
         </el-main>
     </el-container>
 </template>
 
 <script>
 import plantArea from "@/components/plant/plantArea";
+import packageDialog from "@/components/package/index"
+import {post} from "@/utils/httpUtils";
     export default {
         name: "MainView",
       data(){
           return {
             menuList:[],
-            plantAreaList:[],
-            plants:[
-              {areaId:1,areaName:'空地',plant:{id:1,name:'白菜',desc:'普通的白菜',status:[10001]},desc:'平平无奇的空地'},
-              {areaId:2,areaName:'空地',plant:{id:2,name:'白菜',desc:'普通的白菜',status:[10001]},desc:'平平无奇的空地'},
-              {areaId:3,areaName:'空地',plant:{id:3,name:'白菜',desc:'普通的白菜',status:[10001,10002]},desc:'平平无奇的空地'},
-              {areaId:4,areaName:'空地',plant:{id:4,name:'白菜',desc:'普通的白菜',status:[]},desc:'平平无奇的空地'},
-              {areaId:5,areaName:'空地',plant:{id:5,name:'白菜',desc:'普通的白菜',status:[10002]},desc:'平平无奇的空地'},
-              {areaId:6,areaName:'空地',plant:{},desc:'平平无奇的空地'}
-            ]
+            packages:[],
+            currentAreaId:'',
+            dialogFormVisible:false,
+            plantAreaList:[]
           }
       },
       components:{
-        plantArea
+        plantArea,packageDialog
       },
       mounted() {
           let num = Math.round(Math.random()*6)
@@ -42,7 +40,17 @@ import plantArea from "@/components/plant/plantArea";
             name : "菜单_".concat(i.toString())
           })
         }
-        this.plantAreaList.push(...this.plants)
+        post("/api/plantArea/findAll",{growerId:1}).then(res => {
+          if (res.data.code === 0){
+            this.plantAreaList.push(...res.data.data)
+          }
+        })
+      },
+      methods:{
+          selectProps(id){
+            this.dialogFormVisible = !this.dialogFormVisible;
+            this.currentAreaId = id+"";
+          }
       }
     }
 </script>

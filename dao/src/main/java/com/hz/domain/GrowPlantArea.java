@@ -1,0 +1,34 @@
+package com.hz.domain;
+
+import lombok.Data;
+import tk.mybatis.mapper.annotation.ColumnType;
+import tk.mybatis.mapper.annotation.KeySql;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * @author HuangZ
+ * @version v1.0
+ * @date 2022/1/18
+ **/
+@Data
+@Table(name ="grow_plant_area")
+public class GrowPlantArea {
+    @Id
+    @KeySql(useGeneratedKeys = true)
+    int id;
+    @ColumnType(column = "grower_id")
+    int growerId;
+    @ColumnType(column = "default_name")
+    String defaultName;
+    @ColumnType(column = "default_desc")
+    String defaultDesc;
+    @ColumnType(column = "game_obj_id")
+    int gameObjId;
+    String status;
+    @ColumnType(column = "grow_cycle_time")
+    long growCycleTime;
+    @ColumnType(column = "grow_cycle")
+    long growCycle;
+}

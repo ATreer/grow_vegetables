@@ -6,11 +6,16 @@
             <el-col v-for="menu in menuList" :xs="6" :sm="6" :md="4" :lg="2" :xl="2" style="margin-top: 5px"><el-button>{{menu.name}}</el-button></el-col>
           </el-row>
           <el-row :gutter="20" class="blessedLandArea" >
+            <el-col>
+              <el-link @click="refresh">刷新</el-link>
+            </el-col>
             <el-col v-for="plant in plantAreaList" :xs="24" :sm="12" :md="8" :lg="6" :xl="6" style="height: 50px;text-align: left;margin-top: 10px">
-              <plantArea @selectProps="selectProps" :params="plant" ></plantArea>
+              <plantArea @selectProps="selectProps" @refresh="refresh" :params="plant" ></plantArea>
             </el-col>
           </el-row>
-          <packageDialog :dialogFormVisible="dialogFormVisible" :param="currentAreaId" @refresh="refresh"></packageDialog>
+          <el-dialog title="背包" :visible.sync="dialogFormVisible" >
+            <packageDialog  :param="currentAreaId" @refresh="refresh"></packageDialog>
+          </el-dialog>
         </el-main>
     </el-container>
 </template>
@@ -21,6 +26,7 @@ import packageDialog from "@/components/package/index"
 import {post} from "@/utils/httpUtils";
     export default {
         name: "MainView",
+      inject:["reload"],
       data(){
           return {
             menuList:[],
@@ -52,12 +58,12 @@ import {post} from "@/utils/httpUtils";
             this.currentAreaId = id+"";
           },
         refresh(){
+          this.dialogFormVisible =false;
           post("/api/plantArea/findAll",{growerId:1}).then(res => {
             if (res.data.code === 0){
               this.plantAreaList = res.data.data
             }
           })
-          this.dialogFormVisible =! this.dialogFormVisible;
         }
       }
     }

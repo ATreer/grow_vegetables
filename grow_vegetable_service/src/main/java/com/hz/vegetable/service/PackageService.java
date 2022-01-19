@@ -36,7 +36,7 @@ public class PackageService {
     public String plantObj(UseObjParam param, GrowPlantArea area){
         Example example = new Example(Package.class);
         example.createCriteria().andEqualTo("growerId",param.getGrowerId())
-                .andEqualTo("objId",param.getObjId());
+                .andEqualTo("objId",param.getObjId()).andEqualTo("objType",9);
         List<Package> result = packageMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(result)){
             return "种子不存在。";
@@ -59,7 +59,22 @@ public class PackageService {
         area.setGameObjId(param.getObjId());
         area.setGrowCycle(props.getGrowCycle());
         area.setYield(props.getYield());
+        area.setPlantTime(Math.abs(System.currentTimeMillis()/1000));
         growPlantAreaService.updateById(area);
         return "";
+    }
+
+    public void add(Package packObj){
+        Example example = new Example(Package.class);
+        example.createCriteria()
+                .andEqualTo("growerId",packObj.getGrowerId())
+        .andEqualTo("objId",packObj.getObjId()).andEqualTo("objType",packObj.getObjType());
+        Package packResult = packageMapper.selectOneByExample(example);
+        if (null == packResult){
+            packageMapper.insert(packObj);
+        }else {
+            packResult.setObjCount(Math.addExact(packResult.getObjCount(), packObj.getObjCount()));
+            packageMapper.updateByPrimaryKey(packResult);
+        }
     }
 }

@@ -27,4 +27,13 @@ public class PlantAreaController {
         }
         return CropResponseResult.ok(growPlantAreaService.find(area.getGrowerId()));
     }
+
+    @PostMapping("mature")
+    public CropResponseResult<String> mature(@RequestBody GrowPlantArea area){
+        if (area.getGrowerId() == 0 ){
+            return CropResponseResult.failed(10001,"参数合法");
+        }
+        growPlantAreaService.mature(area);
+        return CropResponseResult.ok(null);
+    }
 }

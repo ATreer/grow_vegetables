@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hz.mapper.GrowPropsMapper">
+    <resultMap id="GrowPropsObjMap" type="com.hz.domain.complex.GrowPropsObj">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="grow_result_id" jdbcType="VARCHAR" property="growResultId" />
+        <result column="quality" jdbcType="INTEGER" property="quality" />
+        <result column="grow_cycle" jdbcType="BIGINT" property="growCycle" />
+        <result column="yield" jdbcType="INTEGER" property="yield" />
+        <result column="obj_name" jdbcType="VARCHAR" property="objName" />
+        <result column="desc" jdbcType="VARCHAR" property="desc" />
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+        <result column="grade" jdbcType="INTEGER" property="grade" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+    </resultMap>
+    <select id="selectAllById" resultMap="GrowPropsObjMap" parameterType="int">
+        SELECT a.id,a.grow_result_id,a.quality,a.yield,a.grow_cycle,a.name,g.`name` as obj_name,g.`desc`,g.image_url,g.grade,g.type
+        from grow_props a
+                 LEFT JOIN game_obj g on a.grow_result_id = g.id
+        WHERE a.id  = #{id};
+    </select>
 </mapper>

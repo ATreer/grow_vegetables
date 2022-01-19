@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class GradeDictionary {
     @Id
     @KeySql(useGeneratedKeys = true)
-    int id;
+    Integer id;
     String name;
-    int type;
+    Integer type;
 }

@@ -8,7 +8,9 @@
         <result column="game_obj_id" jdbcType="INTEGER" property="gameObjId" />
         <result column="grow_cycle" jdbcType="BIGINT" property="growCycle" />
         <result column="grow_cycle_time" jdbcType="BIGINT" property="growCycleTime" />
+        <result column="plant_time" jdbcType="BIGINT" property="plantTime" />
         <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="yield" jdbcType="INTEGER" property="yield" />
         <result column="grower_id" jdbcType="INTEGER" property="growerId" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="desc" jdbcType="VARCHAR" property="desc" />
@@ -17,7 +19,9 @@
         <result column="type" jdbcType="INTEGER" property="type" />
     </resultMap>
     <select id="selectAllByUserId" resultMap="PlantAreObjMap" parameterType="int">
-        SELECT a.id,a.default_name,a.default_desc,a.game_obj_id,a.grow_cycle,a.grow_cycle_time,a.`status`,a.grower_id,g.`name`,g.`desc`,g.image_url,g.grade,g.type
-        from grow_plant_area a LEFT JOIN game_obj g on a.game_obj_id = g.id WHERE a.grower_id  = #{id};
+        SELECT a.id,a.default_name,a.default_desc,a.game_obj_id,a.grow_cycle,a.grow_cycle_time,a.plant_time,a.yield,a.`status`,a.grower_id,g.`name`,g.`desc`,g.image_url,g.grade,g.type
+        from grow_plant_area a
+            LEFT JOIN game_obj g on a.game_obj_id = g.id
+        WHERE a.grower_id  = #{id};
     </select>
 </mapper>

@@ -1,7 +1,6 @@
 package com.hz.domain.complex;
 
 import lombok.Data;
-import tk.mybatis.mapper.annotation.ColumnType;
 
 /**
  * @author HuangZ
@@ -10,15 +9,17 @@ import tk.mybatis.mapper.annotation.ColumnType;
  **/
 @Data
 public class PlantAreObj {
-    int id;
-    int growerId;
+    Integer id;
+    Integer growerId;
     String defaultName;
     String defaultDesc;
-    int gameObjId;
+    Integer gameObjId;
+    Integer yield;
+    long plantTime;
     String name;
     String desc;
-    int grade;
-    int type;
+    Integer grade;
+    Integer type;
     String imageUrl;
     String status;
     long growCycleTime;

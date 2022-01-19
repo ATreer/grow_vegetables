@@ -40,6 +40,7 @@ export default {
           this.$message.error("操作错误")
         }
       })
+      this.$emit("refresh")
     }
   }
 }

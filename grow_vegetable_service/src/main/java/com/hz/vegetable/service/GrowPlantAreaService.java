@@ -48,4 +48,8 @@ public class GrowPlantAreaService {
         Optional<GrowPlantArea> plantAreaList =  result.stream().filter(item -> item.getId() == id).findFirst();
         return plantAreaList.orElse(null);
     }
+
+    public void updateById(GrowPlantArea area){
+        growPlantAreaMapper.updateByPrimaryKey(area);
+    }
 }

@@ -17,15 +17,15 @@ import javax.persistence.Table;
 public class Package {
     @Id
     @KeySql(useGeneratedKeys = true)
-    int id;
+    Integer id;
     @ColumnType(column = "grower_id")
-    int growerId;
+    Integer growerId;
     @ColumnType(column = "max_package_count")
-    int maxPackageCount;
+    Integer maxPackageCount;
     @ColumnType(column = "obj_id")
-    int objId;
+    Integer objId;
     @ColumnType(column = "obj_count")
-    int objCount;
+    Integer objCount;
     @ColumnType(column = "obj_type")
-    int objType;
+    Integer objType;
 }

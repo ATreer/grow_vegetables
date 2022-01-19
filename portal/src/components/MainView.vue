@@ -10,7 +10,7 @@
               <plantArea @selectProps="selectProps" :params="plant" ></plantArea>
             </el-col>
           </el-row>
-          <packageDialog :dialogFormVisible="dialogFormVisible" :param="currentAreaId" ></packageDialog>
+          <packageDialog :dialogFormVisible="dialogFormVisible" :param="currentAreaId" @refresh="refresh"></packageDialog>
         </el-main>
     </el-container>
 </template>
@@ -42,7 +42,7 @@ import {post} from "@/utils/httpUtils";
         }
         post("/api/plantArea/findAll",{growerId:1}).then(res => {
           if (res.data.code === 0){
-            this.plantAreaList.push(...res.data.data)
+            this.plantAreaList = res.data.data
           }
         })
       },
@@ -50,7 +50,15 @@ import {post} from "@/utils/httpUtils";
           selectProps(id){
             this.dialogFormVisible = !this.dialogFormVisible;
             this.currentAreaId = id+"";
-          }
+          },
+        refresh(){
+          post("/api/plantArea/findAll",{growerId:1}).then(res => {
+            if (res.data.code === 0){
+              this.plantAreaList = res.data.data
+            }
+          })
+          this.dialogFormVisible =! this.dialogFormVisible;
+        }
       }
     }
 </script>

@@ -7,6 +7,7 @@ import com.hz.vegetable.domain.CropResponseResult;
 import com.hz.vegetable.domain.UseObjParam;
 import com.hz.vegetable.service.GrowPlantAreaService;
 import com.hz.vegetable.service.PackageService;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +42,17 @@ public class PackageController {
         if(null == param || param.getObjId() == 0|| param.getGrowerId() == 0){
             return CropResponseResult.failed(10001,"参数不合法");
         }
+        //检查土地
         GrowPlantArea area = growPlantAreaService.findOne(param.getGrowerId(),param.getTargetId());
         if (null == area){
             return CropResponseResult.failed(10001,"参数不合法");
         }
+        //检查种子
+        String message = packageService.plantObj(param,area);
+        if (!StringUtils.isEmpty(message)){
+            return CropResponseResult.failed(20001,message);
+        }
+
         return CropResponseResult.ok("种植成功。");
     }
 }

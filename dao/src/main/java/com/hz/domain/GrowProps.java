@@ -10,18 +10,20 @@ import javax.persistence.Table;
 /**
  * @author HuangZ
  * @version v1.0
- * @date 2022/1/17
+ * @date 2022/1/19
  **/
 @Data
-@Table(name = "game_obj")
-public class GameObj {
+@Table(name = "grow_props")
+public class GrowProps {
     @Id
     @KeySql(useGeneratedKeys = true)
     Integer id;
     String name;
-    String desc;
+    @ColumnType(column = "grow_result_id")
+    Integer growResultId;
+    @ColumnType(column = "grow_cycle")
+    long growCycle;
     Integer grade;
-    Integer type;
-    @ColumnType(column = "image_url")
-    String imageUrl;
+    Integer yield;
+    Integer quality;
 }

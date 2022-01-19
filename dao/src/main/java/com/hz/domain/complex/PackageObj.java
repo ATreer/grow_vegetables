@@ -1,10 +1,6 @@
 package com.hz.domain.complex;
 
 import lombok.Data;
-import tk.mybatis.mapper.annotation.ColumnType;
-import tk.mybatis.mapper.annotation.KeySql;
-
-import javax.persistence.Id;
 
 /**
  * @author HuangZ
@@ -13,15 +9,15 @@ import javax.persistence.Id;
  **/
 @Data
 public class PackageObj {
-    int id;
-    int growerId;
-    int maxPackageCount;
-    int objId;
-    int objCount;
-    int objType;
+    Integer id;
+    Integer growerId;
+    Integer maxPackageCount;
+    Integer objId;
+    Integer objCount;
+    Integer objType;
     String name;
     String desc;
-    int grade;
-    int type;
+    Integer grade;
+    Integer type;
     String imageUrl;
 }

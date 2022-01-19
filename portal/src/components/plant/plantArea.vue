@@ -43,7 +43,11 @@ export default {
       this.operateList.push({ name: '播种',func:this.getPackageInfo})
       return;
     }
-    let status = JSON.parse(this.params.status)?[]:JSON.parse(this.params.status);
+    if (isNull(this.params.status)){
+      return;
+    }
+    let status = JSON.parse(this.params.status);
+
     if (status.indexOf(10001) !== -1){
       this.operateList.push({ name: '捉虫',func:this.getPackageInfo})
     }
@@ -53,7 +57,7 @@ export default {
   },
   methods:{
     checkObj(param){
-      return isNull(param)
+      return param === 0
     },getPackageInfo(){
       this.$emit('selectProps',this.params.id);
     },operate(){

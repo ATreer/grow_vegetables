@@ -17,18 +17,21 @@ import javax.persistence.Table;
 public class GrowPlantArea {
     @Id
     @KeySql(useGeneratedKeys = true)
-    int id;
+    Integer id;
     @ColumnType(column = "grower_id")
-    int growerId;
+    Integer growerId;
     @ColumnType(column = "default_name")
     String defaultName;
     @ColumnType(column = "default_desc")
     String defaultDesc;
     @ColumnType(column = "game_obj_id")
-    int gameObjId;
+    Integer gameObjId;
     String status;
     @ColumnType(column = "grow_cycle_time")
-    long growCycleTime;
+    Long growCycleTime;
+    @ColumnType(column = "plant_time")
+    Long plantTime;
     @ColumnType(column = "grow_cycle")
-    long growCycle;
+    Long growCycle;
+    Integer yield;
 }

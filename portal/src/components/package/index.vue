@@ -1,8 +1,13 @@
 <template>
   <el-row>
     <el-col :span="8" v-for="item in packages" style="margin-top: 10px">
-      <el-tag type="success">{{item.name}}</el-tag>
-      <el-link type="primary" @click="use(item)">使用</el-link>
+        <el-popover
+            placement="top-start"
+            width="20"
+            trigger="hover">
+          <el-link type="primary" @click="use(item)">使用</el-link>
+          <el-tag type="success" slot="reference">{{item.name}}</el-tag>
+        </el-popover>
     </el-col>
   </el-row>
 </template>

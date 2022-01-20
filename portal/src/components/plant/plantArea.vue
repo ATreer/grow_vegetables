@@ -20,7 +20,7 @@
         <el-link @click="plantInfo" :type="checkObj(params.gameObjId)?'info':'success'" slot="reference">{{checkObj(params.gameObjId) ? params.defaultName : params.name}}</el-link>
       </el-popover></el-col>
       <el-col :span="12/operateList.length" v-for="operate in operateList">
-        <el-link @click="operate.func" type="primary" >{{operate.name}}</el-link>
+        <el-link @click="operate.func(operate.param)" type="primary" >{{operate.name}}</el-link>
       </el-col>
       <el-col :span="12" v-if="isMature">
         <el-link @click="mature" type="primary" >收获</el-link>
@@ -77,20 +77,25 @@ export default {
       let status = JSON.parse(this.params.status);
 
       if (status.indexOf(10001) !== -1){
-        this.operateList.push({ name: '捉虫',func:this.getPackageInfo})
+        this.operateList.push({ name: '捉虫',func:this.catchInsect,param: 10001})
       }
       if (status.indexOf(10002) !== -1){
-        this.operateList.push({ name: '灌溉',func:this.getPackageInfo})
+        this.operateList.push({ name: '灌溉',func:this.catchInsect,param: 10002})
       }
     },
-    operate(){
-
+    catchInsect(status){
+      post("/api/plantArea/catchInsect?dealStatus=" + status,this.params).then(res => {
+        if (res.data.code === 0){
+          this.$emit('refresh');
+          this.$message.success("操作成功")
+        }else {
+          this.$message.success("操作失败")
+        }
+      })
     },mature(){
       post("/api/plantArea/mature",this.params).then(res => {
-        console.log(res.data)
         this.$emit('refresh');
       })
-
     },
     plantInfo(){
 

@@ -36,4 +36,14 @@ public class PlantAreaController {
         growPlantAreaService.mature(area);
         return CropResponseResult.ok(null);
     }
+
+    @PostMapping("catchInsect")
+    public CropResponseResult<String> catchInsect(@RequestBody GrowPlantArea area,@RequestParam int dealStatus){
+        if (area.getGrowerId() == 0 || area.getId() == 0){
+            return CropResponseResult.failed(10001,"参数合法");
+        }
+        System.out.println(" dealStatus  is " + dealStatus);
+        growPlantAreaService.catchInsect(area,dealStatus);
+        return CropResponseResult.ok(null);
+    }
 }

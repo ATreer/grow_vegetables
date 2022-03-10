@@ -3,7 +3,6 @@ package com.hz.vegetable.controller;
 import com.hz.domain.AdventureMap;
 import com.hz.domain.MapObj;
 import com.hz.mapper.AdventureMapMapper;
-import com.hz.mapper.MapObjMapper;
 import com.hz.vegetable.domain.CropResponseResult;
 import com.hz.vegetable.service.AdventureService;
 import org.springframework.web.bind.annotation.PostMapping;

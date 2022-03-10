@@ -43,8 +43,8 @@ public class AdventureService {
             return result;
         }
         mapObjList.forEach(System.out::println);
-        AtomicInteger LOOP_COUNT = new AtomicInteger(5);
-        while (LOOP_COUNT.getAndDecrement() >= 0) {
+        AtomicInteger loopCount = new AtomicInteger(5);
+        while (loopCount.getAndDecrement() >= 0) {
             int index = RandomUtil.randomInt(10);
             Map<String,Object> item = new HashMap<>(8);
             if (index >= 5){

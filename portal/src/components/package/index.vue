@@ -1,12 +1,14 @@
 <template>
   <el-row>
-    <el-col :span="8" v-for="item in packages" style="margin-top: 10px">
+    <el-col :span="4" v-for="item in packages" style="margin-top: 10px;margin-bottom: 10px;">
         <el-popover
             placement="top-start"
             width="20"
             trigger="hover">
           <el-link type="primary" @click="use(item)">使用</el-link>
-          <el-tag type="success" slot="reference">{{item.name}}</el-tag>
+          <div slot="reference" class="packageCellClass">
+            <span>{{item.name}}</span>
+          </div>
         </el-popover>
     </el-col>
   </el-row>
@@ -14,7 +16,6 @@
 
 <script>
 import {post} from "@/utils/httpUtils";
-
 export default {
   name: "packageDialog",
   props:{
@@ -48,6 +49,17 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.packageCellClass{
+  background-color: rgba(199, 197, 192, 0.49);
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  span {
+    color: #1d9a07;
+    margin: 18px 0;
+    line-height: 16px;
+    display: inline-block;
+  }
+}
 </style>

@@ -1,10 +1,9 @@
 <template>
   <el-card style="height: 100%">
     <el-row :gutter="20">
-      <el-col :span="12"><el-popover
+      <el-col :span="12">
+        <el-popover
           placement="top-start"
-          title="标题"
-          width="200"
           @show="printTime"
           trigger="hover">
         <el-descriptions :column="1" v-if="checkObj(params.gameObjId)">
@@ -17,7 +16,7 @@
           <el-descriptions-item label="产量">{{params.yield}}</el-descriptions-item>
           <el-descriptions-item label="成熟时间">{{matureTime}}</el-descriptions-item>
         </el-descriptions>
-        <el-link @click="plantInfo" :type="checkObj(params.gameObjId)?'info':'success'" slot="reference">{{checkObj(params.gameObjId) ? params.defaultName : params.name}}</el-link>
+        <el-link :type="checkObj(params.gameObjId)?'info':'success'" slot="reference">{{checkObj(params.gameObjId) ? params.defaultName : params.name}}</el-link>
       </el-popover></el-col>
       <el-col :span="12/operateList.length" v-for="operate in operateList">
         <el-link @click="operate.func(operate.param)" type="primary" >{{operate.name}}</el-link>
@@ -96,13 +95,13 @@ export default {
       post("/api/plantArea/mature",this.params).then(res => {
         this.$emit('refresh');
       })
-    },
-    plantInfo(){
-
     },printTime(){
       let newTime = new Date().getTime();
       let remainDate = newTime/1000 - this.params.plantTime;
       let remainTime = this.params.growCycle - remainDate;
+      if (this.params.plantTime === 0){
+        return;
+      }
       if (remainTime <= 0){
         this.matureTime = '成熟';
         this.isMature = true;
